@@ -1,6 +1,6 @@
-import { User } from "firebase/auth";
+// import { User } from "firebase/auth";
 
-export default function HistoryPanel({ user }: { user: User }) {
+export default function HistoryPanel() {
   // TODO: Fetch and display user's generations from Firestore
   return (
     <div>

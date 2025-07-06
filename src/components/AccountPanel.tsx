@@ -26,7 +26,7 @@ export default function AccountPanel() {
       // Remove user from Firestore first
       await deleteUserFromFirestore(user.uid);
       await deleteUser(user);
-    } catch (e: any) {
+    } catch (e) {
       if (e.code === "auth/requires-recent-login") {
         // Prompt re-authentication
         try {

@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
         { status: 502 }
       );
     }
-  } catch (e) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to contact Gemini API" },
       { status: 500 }

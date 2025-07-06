@@ -1,6 +1,6 @@
 import SessionView from "../../../components/SessionView";
-import { redirect } from "next/navigation";
-import { auth } from "../../../lib/firebase";
+// import { redirect } from "next/navigation";
+// import { auth } from "../../../lib/firebase";
 
 export default async function SessionPage({
   params,

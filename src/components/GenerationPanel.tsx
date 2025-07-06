@@ -23,7 +23,7 @@ export default function GenerationPanel({ user }: { user: User }) {
       if (data.result) {
         await saveGeneration({ userId: user.uid, prompt, result: output });
       }
-    } catch (err) {
+    } catch {
       setResult("[Error contacting API]");
     }
     setLoading(false);
