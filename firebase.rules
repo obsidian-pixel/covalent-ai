@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users can read, update, and delete their own user profile document.
+    match /users/{userId} {
+      allow read, update, delete: if request.auth.uid == userId;
+      allow create: if request.auth.uid == userId;
+    }
+
+    // Users can read their own generations and create new ones for themselves.
+    // We prevent them from editing/deleting history to maintain integrity.
+    match /generations/{generationId} {
+      allow read: if request.auth.uid == resource.data.userId;
+      allow create: if request.auth.uid == request.resource.data.userId;
+      allow update, delete: if false;
+    }
+  }
+}
