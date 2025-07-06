@@ -26,8 +26,8 @@ export default function AccountPanel() {
       // Remove user from Firestore first
       await deleteUserFromFirestore(user.uid);
       await deleteUser(user);
-    } catch (e) {
-      if (e.code === "auth/requires-recent-login") {
+    } catch (e: unknown) {
+      if (typeof e === "object" && e && "code" in e && (e as { code?: string }).code === "auth/requires-recent-login") {
         // Prompt re-authentication
         try {
           await reauthenticateWithPopup(user, googleProvider);
@@ -37,7 +37,8 @@ export default function AccountPanel() {
           alert("Re-authentication failed: " + (reauthErr as Error).message);
         }
       } else {
-        alert("Error deleting account: " + e.message);
+        const msg = typeof e === "object" && e && "message" in e ? (e as { message?: string }).message : String(e);
+        alert("Error deleting account: " + msg);
       }
     } finally {
       setDeleting(false);
