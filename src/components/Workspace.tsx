@@ -14,7 +14,7 @@ export default function Workspace() {
   return (
     <div className="flex flex-col md:flex-row h-[80vh] w-full max-w-6xl mx-auto gap-4 p-4">
       <div className="flex-1 bg-graphite rounded p-4 overflow-auto">
-        <HistoryPanel user={user} />
+        <HistoryPanel />
       </div>
       <div className="flex-[2] bg-carbon rounded p-4 overflow-auto">
         <GenerationPanel user={user} />
