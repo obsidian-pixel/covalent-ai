@@ -51,3 +51,22 @@
 .animate-subtle-glow {
   animation: subtle-glow 1.5s infinite alternate;
 }
+
+/* Animations for AuthModal */
+@keyframes slideDownEnter {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideUpLeave {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-30px); opacity: 0; }
+}
+
+.animate-slideDownEnter {
+  animation: slideDownEnter 0.3s ease-out forwards;
+}
+
+.animate-slideUpLeave {
+  animation: slideUpLeave 0.3s ease-out forwards;
+}

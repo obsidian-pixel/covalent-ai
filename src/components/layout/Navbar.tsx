@@ -1,19 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useAuth } from '@/context/AuthContext'; // Corrected path using alias
-import Link from 'next/link'; // For the Login button
-
-// Placeholder for UserMenu component
-const UserMenu = () => {
-  const { user } = useAuth();
-  return (
-    <div className="text-sm">
-      Welcome, {user?.displayName || user?.email || 'User'}
-      {/* Implement actual user menu dropdown here */}
-    </div>
-  );
-};
+import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
+import UserMenu from './UserMenu'; // Import the actual UserMenu component
 
 const Navbar = () => {
   const { user, loading } = useAuth();

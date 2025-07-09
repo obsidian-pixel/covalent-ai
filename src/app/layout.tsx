@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css"; // Corrected path
 import "@/styles/animations.css"; // Corrected path
 import { AuthProvider } from "@/context/AuthContext"; // Corrected path
+import AuthModal from "@/components/auth/AuthModal"; // Import AuthModal
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           {children}
+          <AuthModal /> {/* Render AuthModal here */}
         </AuthProvider>
         <Analytics />
       </body>

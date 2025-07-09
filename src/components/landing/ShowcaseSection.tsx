@@ -1,10 +1,9 @@
 import React from 'react';
-import BrowserFrame from '@/components/ui/BrowserFrame'; // Import the actual component
+import BrowserFrame from '@/components/ui/BrowserFrame';
 
 const ShowcaseSection = () => {
-  // Placeholder video URLs - these files don't exist yet
-  const videoDataTable = '/videos/data-table.mp4';
-  const videoCharts = '/videos/charts.mp4';
+  const videoDataTable = '/videos/data-table.mp4'; // Placeholder
+  const videoCharts = '/videos/charts.mp4'; // Placeholder
 
   return (
     <section className="py-16 md:py-24 bg-carbon text-chalk">
@@ -27,7 +26,6 @@ const ShowcaseSection = () => {
               muted
               playsInline
               className="w-full h-auto object-cover"
-              // Add poster attribute if you have placeholder images for videos
             >
               Your browser does not support the video tag.
             </video>
@@ -44,7 +42,7 @@ const ShowcaseSection = () => {
             >
               Your browser does not support the video tag.
             </video>
-          </BrowserFramePlaceholder>
+          </BrowserFrame>
         </div>
       </div>
     </section>
