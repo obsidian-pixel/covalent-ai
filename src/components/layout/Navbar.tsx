@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useAuth } from '../../context/AuthContext'; // Adjusted path
+import { useAuth } from '@/context/AuthContext'; // Corrected path using alias
 import Link from 'next/link'; // For the Login button
 
 // Placeholder for UserMenu component

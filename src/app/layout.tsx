@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "@/app/styles/globals.css"; // Path to new globals.css
-import "@/app/styles/animations.css"; // Path to new animations.css
-import { AuthProvider } from "@/app/context/AuthContext"; // Path to AuthContext
+import "@/styles/globals.css"; // Corrected path
+import "@/styles/animations.css"; // Corrected path
+import { AuthProvider } from "@/context/AuthContext"; // Corrected path
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

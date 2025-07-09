@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, DocumentData } from 'firebase/firestore';
-import { auth, firestore } from '../../firebase'; // Adjusted path to firebase.ts
+import { auth, firestore } from '../../raiduix/firebase'; // Corrected path to firebase.ts
 
 interface AuthContextType {
   user: User | null;
