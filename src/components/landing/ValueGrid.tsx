@@ -58,7 +58,7 @@ const ValueGrid = () => {
             Why Choose RaiduIX?
           </h2>
           <p className="text-lg md:text-xl text-chalk/80 max-w-2xl mx-auto">
-            We've poured countless hours into crafting a component library that solves real-world problems with elegance and power.
+            We&apos;ve poured countless hours into crafting a component library that solves real-world problems with elegance and power.
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">

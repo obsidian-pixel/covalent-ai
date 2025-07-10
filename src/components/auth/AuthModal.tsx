@@ -8,7 +8,7 @@ import { auth } from '../../../raiduix/firebase';
 import { createUserProfileDocument } from '@/lib/firebaseHelpers'; // Import the helper
 
 const AuthModal = () => {
-  const { isAuthModalOpen, closeAuthModal, authModalType, openAuthModal } = useModalStore();
+  const { isAuthModalOpen, closeAuthModal, authModalType } = useModalStore(); // Removed openAuthModal
   const [isVisible, setIsVisible] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false); // Loading state for Google button
   const [googleError, setGoogleError] = useState<string | null>(null); // Error state for Google button
@@ -74,13 +74,19 @@ const AuthModal = () => {
         await createUserProfileDocument(user);
       }
       // AuthContext will handle redirect, modal should close.
-    } catch (error: any) {
+    } catch (error) { // Typed error as unknown for better practice, then check instance or properties
       console.error('Google sign in error:', error);
-      if (error.code === 'auth/popup-closed-by-user') {
-        setGoogleError('Sign-in popup closed. Please try again.');
-      } else {
-        setGoogleError(error.message || 'Failed to sign in with Google.');
+      let message = 'Failed to sign in with Google.';
+      if (error instanceof Error) { // Check if it's a standard Error object
+        // Firebase errors often have a 'code' property
+        const firebaseError = error as any; // Cast to any to check for code, or use specific FirebaseError type
+        if (firebaseError.code === 'auth/popup-closed-by-user') {
+          message = 'Sign-in popup closed. Please try again.';
+        } else {
+          message = firebaseError.message || message;
+        }
       }
+      setGoogleError(message);
     } finally {
       setGoogleLoading(false);
     }

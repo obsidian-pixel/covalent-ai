@@ -42,34 +42,40 @@ const EmailForm = ({ view }: EmailFormProps) => {
       // and we might need a mechanism in AuthModal to close if `user` becomes non-null.
       // Or, more simply, the redirect in AuthContext will make the modal disappear.
       // Let's rely on the redirect for now. If user is set, AuthContext redirects, modal is gone.
-    } catch (err: any) {
+    } catch (error) { // Changed err to error, and typed as unknown
       let friendlyMessage = 'An error occurred. Please try again.';
-      if (err.code) {
-        switch (err.code) {
-          case 'auth/invalid-email':
-            friendlyMessage = 'Please enter a valid email address.';
-            break;
-          case 'auth/user-disabled':
-            friendlyMessage = 'This user account has been disabled.';
-            break;
-          case 'auth/user-not-found':
-            friendlyMessage = 'No user found with this email. Please sign up.';
-            break;
-          case 'auth/wrong-password':
-            friendlyMessage = 'Incorrect password. Please try again.';
-            break;
-          case 'auth/email-already-in-use':
-            friendlyMessage = 'This email is already in use. Please login or use a different email.';
-            break;
-          case 'auth/weak-password':
-            friendlyMessage = 'Password should be at least 6 characters.';
-            break;
-          default:
-            friendlyMessage = err.message; // Fallback to Firebase message
-        }
+      if (error instanceof Error) { // Check if it's a standard Error object
+          // Firebase errors often have a 'code' property, cast to any or use FirebaseError type
+          const firebaseError = error as any;
+          if (firebaseError.code) {
+            switch (firebaseError.code) {
+              case 'auth/invalid-email':
+                friendlyMessage = 'Please enter a valid email address.';
+                break;
+              case 'auth/user-disabled':
+                friendlyMessage = 'This user account has been disabled.';
+                break;
+              case 'auth/user-not-found':
+                friendlyMessage = 'No user found with this email. Please sign up.';
+                break;
+              case 'auth/wrong-password':
+                friendlyMessage = 'Incorrect password. Please try again.';
+                break;
+              case 'auth/email-already-in-use':
+                friendlyMessage = 'This email is already in use. Please login or use a different email.';
+                break;
+              case 'auth/weak-password':
+                friendlyMessage = 'Password should be at least 6 characters.';
+                break;
+              default:
+                friendlyMessage = firebaseError.message || friendlyMessage; // Fallback to Firebase message or generic
+            }
+          } else {
+            friendlyMessage = error.message || friendlyMessage; // Standard error message
+          }
       }
       setError(friendlyMessage);
-      console.error(`${view} Firebase error:`, err);
+      console.error(`${view} Firebase error:`, error);
     } finally {
       setLoading(false);
     }
