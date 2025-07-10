@@ -17,22 +17,20 @@ const GoogleIcon = () => (
 const AuthButtons = () => {
   const { openAuthModal } = useModalStore();
 
-  // Removed authType parameter as it's not used when calling openAuthModal('signup')
-  const handleOpenAuthModal = () => {
     openAuthModal('signup');
   };
 
   return (
     <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 w-full max-w-md mx-auto">
       <button
-        onClick={handleOpenAuthModal} // Call without 'google' argument
+
         className="flex items-center justify-center w-full px-6 py-3 bg-white text-graphite font-semibold rounded-lg shadow-md hover:bg-gray-100 transition-colors duration-300"
       >
         <GoogleIcon />
         Sign Up with Google
       </button>
       <button
-        onClick={handleOpenAuthModal} // Call without 'email' argument
+
         className="w-full px-6 py-3 bg-amber-500 text-graphite-deep font-semibold rounded-lg shadow-md hover:bg-amber-600 transition-colors duration-300"
       >
         Sign Up with Email
