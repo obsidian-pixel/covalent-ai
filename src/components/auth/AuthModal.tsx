@@ -76,8 +76,17 @@ const AuthModal = () => {
       // AuthContext will handle redirect, modal should close.
     } catch (error: unknown) {
       console.error('Google sign in error:', error);
-      if (error instanceof Error && 'code' in error && (error as { code: string }).code === 'auth/popup-closed-by-user') {
-        setGoogleError('Sign-in popup closed. Please try again.');
+      // Type guard for Firebase errors with a 'code' property
+      const isFirebaseError = (e: unknown): e is { code: string; message: string } => {
+        return typeof e === 'object' && e !== null && 'code' in e && 'message' in e;
+      };
+
+      if (isFirebaseError(error)) {
+        if (error.code === 'auth/popup-closed-by-user') {
+          setGoogleError('Sign-in popup closed. Please try again.');
+        } else {
+          setGoogleError(error.message || 'Failed to sign in with Google.');
+        }
       } else if (error instanceof Error) {
         setGoogleError(error.message || 'Failed to sign in with Google.');
       } else {

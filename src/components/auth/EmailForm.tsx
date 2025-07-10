@@ -44,9 +44,13 @@ const EmailForm = ({ view }: EmailFormProps) => {
       // Let's rely on the redirect for now. If user is set, AuthContext redirects, modal is gone.
     } catch (err: unknown) {
       let friendlyMessage = 'An error occurred. Please try again.';
-      if (err instanceof Error && 'code' in err) {
-        const errorCode = (err as { code: string }).code;
-        switch (errorCode) {
+      // Type guard for Firebase errors with a 'code' property
+      const isFirebaseError = (e: unknown): e is { code: string; message: string } => {
+        return typeof e === 'object' && e !== null && 'code' in e && 'message' in e;
+      };
+
+      if (isFirebaseError(err)) {
+        switch (err.code) {
           case 'auth/invalid-email':
             friendlyMessage = 'Please enter a valid email address.';
             break;
@@ -68,6 +72,8 @@ const EmailForm = ({ view }: EmailFormProps) => {
           default:
             friendlyMessage = err.message; // Fallback to Firebase message
         }
+      } else if (err instanceof Error) {
+        friendlyMessage = err.message;
       }
       setError(friendlyMessage);
       console.error(`${view} Firebase error:`, err);
