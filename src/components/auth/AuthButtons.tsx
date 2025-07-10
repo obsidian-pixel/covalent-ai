@@ -17,7 +17,7 @@ const GoogleIcon = () => (
 const AuthButtons = () => {
   const { openAuthModal } = useModalStore();
 
-  const handleOpenAuthModal = (authType: 'google' | 'email') => {
+  const handleOpenAuthModal = () => {
     // Here you could also pass 'google' or 'email' to the store if you want to handle different modal contents
     openAuthModal('signup');
   };
@@ -25,14 +25,14 @@ const AuthButtons = () => {
   return (
     <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 w-full max-w-md mx-auto">
       <button
-        onClick={() => handleOpenAuthModal('google')}
+        onClick={() => handleOpenAuthModal()}
         className="flex items-center justify-center w-full px-6 py-3 bg-white text-graphite font-semibold rounded-lg shadow-md hover:bg-gray-100 transition-colors duration-300"
       >
         <GoogleIcon />
         Sign Up with Google
       </button>
       <button
-        onClick={() => handleOpenAuthModal('email')}
+        onClick={() => handleOpenAuthModal()}
         className="w-full px-6 py-3 bg-amber-500 text-graphite-deep font-semibold rounded-lg shadow-md hover:bg-amber-600 transition-colors duration-300"
       >
         Sign Up with Email

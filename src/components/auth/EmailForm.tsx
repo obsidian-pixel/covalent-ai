@@ -42,10 +42,11 @@ const EmailForm = ({ view }: EmailFormProps) => {
       // and we might need a mechanism in AuthModal to close if `user` becomes non-null.
       // Or, more simply, the redirect in AuthContext will make the modal disappear.
       // Let's rely on the redirect for now. If user is set, AuthContext redirects, modal is gone.
-    } catch (err: any) {
+    } catch (err: unknown) {
       let friendlyMessage = 'An error occurred. Please try again.';
-      if (err.code) {
-        switch (err.code) {
+      if (err instanceof Error && 'code' in err) {
+        const errorCode = (err as { code: string }).code;
+        switch (errorCode) {
           case 'auth/invalid-email':
             friendlyMessage = 'Please enter a valid email address.';
             break;
